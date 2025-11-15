@@ -1,48 +1,7 @@
 import { useEffect } from 'react';
-import { Sparkles, ShieldCheck, Users, Building2, ArrowRight, Leaf } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
 
-const pillars = [
-  {
-    icon: Building2,
-    title: 'Implantation locale',
-    description: 'Présence quotidienne en Seine-et-Marne (77) pour une logistique rapide et flexible.'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Protocoles maîtrisés',
-    description: 'Méthodes contrôlées pour les hôtels, restaurants, cabinets médicaux et bureaux premium.'
-  },
-  {
-    icon: Users,
-    title: 'Équipe dédiée',
-    description: 'Professionnels formés aux standards de discrétion, d’efficacité et de courtoisie.'
-  }
-];
-
-const journey = [
-  {
-    step: '01',
-    title: 'Écoute & audit sur site',
-    description: 'Un diagnostic précis de vos espaces pour identifier les zones sensibles, les rythmes d’intervention et les contraintes.'
-  },
-  {
-    step: '02',
-    title: 'Signature sur-mesure',
-    description: 'Un protocole de nettoyage pensé pour chaque secteur : hôtels, restaurants, cabinets médicaux, entreprises, particuliers et locations Airbnb.'
-  },
-  {
-    step: '03',
-    title: 'Exécution & contrôle continu',
-    description: 'Équipes dédiées, matériel professionnel, traçabilité et ajustements temps réel pour un rendu constant.'
-  }
-];
-
-const stats = [
-  { value: '6', label: 'Secteurs premium' },
-  { value: '24/7', label: 'Réactivité' },
-  { value: '100%', label: 'Clients satisfaits' }
-];
 
 const About = () => {
   useEffect(() => {
