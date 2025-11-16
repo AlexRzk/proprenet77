@@ -137,6 +137,8 @@ function App() {
     setSubmitStatus('idle');
 
     try {
+      console.log('📤 Sending form data:', formData);
+      
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -145,15 +147,20 @@ function App() {
         body: JSON.stringify(formData),
       });
 
+      console.log('📥 Response status:', response.status);
+      const responseData = await response.json();
+      console.log('📥 Response data:', responseData);
+
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', phone: '', message: '' });
         setTimeout(() => setSubmitStatus('idle'), 5000);
       } else {
+        console.error('❌ Server error:', responseData);
         setSubmitStatus('error');
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('❌ Error submitting form:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
