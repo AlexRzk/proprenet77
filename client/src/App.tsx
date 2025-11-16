@@ -207,7 +207,7 @@ function App() {
 
             <div className="relative w-full mt-16">
               <div
-                className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10"
                 style={{ overflow: 'visible' }}
               >
                 <h2

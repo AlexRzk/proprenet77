@@ -132,9 +132,7 @@ export default function Navbar() {
             <div className="mt-6 grid gap-3">
               <a
                 href="tel:0764515942"
-                className={`flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold backdrop-blur-md transition-colors duration-300 ${
-                  isScrolled ? 'border-[#14794b]/20 text-[#14794b] bg-white/50' : 'border-[#14794b]/30 text-[#14794b] bg-white/90'
-                }`}
+                className="flex items-center justify-center gap-2 rounded-2xl border border-[#14794b]/30 px-4 py-3 text-sm font-semibold bg-white text-[#14794b] transition-colors duration-300 hover:bg-[#14794b]/10"
               >
                 <Phone className="w-4 h-4" />
                 07 64 51 59 42
