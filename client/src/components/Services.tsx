@@ -60,24 +60,24 @@ const activities = [
 
 const Services = () => {
   return (
-    <section id="activities" className="py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-      <div className="absolute inset-0 bg-white"></div>
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+    <section id="activities" className="py-32 bg-white relative overflow-hidden z-20">
+      <div className="absolute inset-0 bg-white z-0"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent z-10"></div>
       
-      <div className="container mx-auto px-6 relative">
-        <div className="text-center mb-20 max-w-3xl mx-auto">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center mb-20 max-w-3xl mx-auto relative z-20">
           <div className="inline-block mb-4">
             <span className="text-2xl font-semibold text-[#00a41d] bg-[#00a41d]/10 px-4 py-2 rounded-full">
               Nos Services
             </span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-display font-bold text-gray-900 mb-6">
-            Solutions de Nettoyage
-            <span className="block bg-gradient-to-r from-[#00a41d] to-[#00c424] bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-display font-bold text-gray-900 mb-6 relative">
+            <span className="relative z-10 bg-white px-2">Solutions de Nettoyage</span>
+            <span className="block bg-gradient-to-r from-[#00a41d] to-[#00c424] bg-clip-text text-transparent relative z-10" style={{ WebkitTextStroke: '0.5px rgba(0, 164, 29, 0.1)' }}>
               Sur Mesure
             </span>
           </h2>
-          <p className="text-xl text-gray-600 font-light">
+          <p className="text-xl text-gray-600 font-light relative z-10 bg-white px-2">
             Des prestations adaptées à chaque environnement professionnel
           </p>
         </div>
