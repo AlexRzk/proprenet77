@@ -36,10 +36,10 @@ export default function Navbar() {
     : 'text-white/80 hover:text-white';
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+    <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div
-          className={`mt-4 flex items-center justify-between gap-6 rounded-3xl backdrop-blur-xl transition-all duration-500 px-5 md:px-8 py-4 pointer-events-auto ${navShellClasses}`}
+          className={`mt-4 flex items-center justify-between gap-6 rounded-3xl backdrop-blur-xl transition-all duration-500 px-5 md:px-8 py-4 ${navShellClasses}`}
         >
           <button
             className="flex items-center gap-3 group"
@@ -110,7 +110,7 @@ export default function Navbar() {
 
         {isMobileMenuOpen && (
           <div
-            className={`mt-3 rounded-3xl border px-6 py-6 shadow-2xl transition-all duration-500 lg:hidden pointer-events-auto ${
+            className={`mt-3 rounded-3xl border px-6 py-6 shadow-2xl transition-all duration-500 lg:hidden ${
               isScrolled
                 ? 'bg-white/95 border-gray-200 text-gray-900'
                 : 'bg-white/10 border-white/20 text-white backdrop-blur-xl'
