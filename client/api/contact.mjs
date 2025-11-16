@@ -1,5 +1,7 @@
 // Vercel Serverless Function for Contact Form
-module.exports = async (req, res) => {
+import { Resend } from 'resend';
+
+export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -44,14 +46,13 @@ module.exports = async (req, res) => {
       });
     }
     
-    // Import Resend dynamically
-    const { Resend } = require('resend');
+    // Initialize Resend
     const resend = new Resend(process.env.RESEND_API_KEY);
     
-    // Send email
+    // Send email - IMPORTANT: Can only send to rozek.alexandre@gmail.com until domain is verified
     const { data, error } = await resend.emails.send({
       from: 'PropreNet <onboarding@resend.dev>',
-      to: 'olo.rozek.pl@gmail.com',
+      to: 'rozek.alexandre@gmail.com', // Changed to your verified email
       replyTo: email,
       subject: `Nouveau message de ${name}`,
       html: `
@@ -96,4 +97,4 @@ module.exports = async (req, res) => {
       message: 'Une erreur est survenue lors du traitement de votre demande' 
     });
   }
-};
+}
