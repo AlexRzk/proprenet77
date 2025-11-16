@@ -38,7 +38,7 @@ export default async function handler(req, res) {
     // Send email using Resend
     await resend.emails.send({
       from: 'PropreNet <onboarding@resend.dev>', // Use verified domain or resend.dev for testing
-      to: 'contact@proprenet77.com', // Your business email
+      to: 'olo.rozek.pl@gmail.com', // Your business email
       replyTo: email, // Customer's email for easy replies
       subject: `Nouveau message de ${name}`,
       html: `
