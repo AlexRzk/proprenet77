@@ -1,8 +1,5 @@
-const { Resend } = require('resend');
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-module.exports = async function handler(req, res) {
+// Vercel Serverless Function for Contact Form
+module.exports = async (req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -19,6 +16,7 @@ module.exports = async function handler(req, res) {
   try {
     const { name, email, phone, message } = req.body;
     
+    // Validate required fields
     if (!name || !email || !phone || !message) {
       return res.status(400).json({ 
         success: false, 
@@ -26,7 +24,7 @@ module.exports = async function handler(req, res) {
       });
     }
     
-    // Log the contact form submission
+    // Log submission
     console.log('📧 Contact form submission:', { 
       name, 
       email, 
@@ -35,13 +33,26 @@ module.exports = async function handler(req, res) {
       timestamp: new Date().toISOString()
     });
     
-    // Send email using Resend
+    // Check if API key exists
     console.log('🔑 API Key exists:', !!process.env.RESEND_API_KEY);
     
-    const emailResult = await resend.emails.send({
-      from: 'PropreNet <onboarding@resend.dev>', // Use verified domain or resend.dev for testing
-      to: 'olo.rozek.pl@gmail.com', // Your business email
-      replyTo: email, // Customer's email for easy replies
+    if (!process.env.RESEND_API_KEY) {
+      console.error('❌ RESEND_API_KEY is not set');
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Configuration error - API key missing' 
+      });
+    }
+    
+    // Import Resend dynamically
+    const { Resend } = require('resend');
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    
+    // Send email
+    const { data, error } = await resend.emails.send({
+      from: 'PropreNet <onboarding@resend.dev>',
+      to: 'olo.rozek.pl@gmail.com',
+      replyTo: email,
       subject: `Nouveau message de ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -59,18 +70,30 @@ module.exports = async function handler(req, res) {
       `
     });
     
-    console.log('✅ Email sent successfully:', emailResult);
+    if (error) {
+      console.error('❌ Resend error:', error);
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Erreur lors de l\'envoi de l\'email' 
+      });
+    }
+    
+    console.log('✅ Email sent successfully:', data);
     
     return res.status(200).json({ 
       success: true, 
       message: 'Votre demande a été envoyée avec succès !' 
     });
+    
   } catch (error) {
     console.error('❌ Error processing contact form:', error);
-    console.error('Error details:', JSON.stringify(error, null, 2));
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    
     return res.status(500).json({ 
       success: false, 
-      message: 'Une erreur est survenue' 
+      message: 'Une erreur est survenue lors du traitement de votre demande' 
     });
   }
 };
