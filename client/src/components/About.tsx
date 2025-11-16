@@ -89,7 +89,13 @@ const About = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
-            <Button className="bg-gradient-to-r from-[#00a41d] to-emerald-600 hover:from-emerald-600 hover:to-[#00a41d] text-white px-8 py-6 rounded-full text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300">
+            <Button 
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                contactSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-[#00a41d] to-emerald-600 hover:from-emerald-600 hover:to-[#00a41d] text-white px-8 py-6 rounded-full text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+            >
               Demander un devis <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
             <span className="text-sm text-gray-500">Réponse sous 24h</span>

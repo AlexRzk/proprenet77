@@ -110,7 +110,7 @@ export default function Navbar() {
 
         {isMobileMenuOpen && (
           <div
-            className={`mt-3 rounded-3xl border px-6 py-6 shadow-2xl transition-all duration-500 lg:hidden ${
+            className={`mt-3 rounded-3xl border px-6 py-6 shadow-2xl transition-all duration-500 lg:hidden pointer-events-auto ${
               isScrolled
                 ? 'bg-white/95 border-gray-200 text-gray-900'
                 : 'bg-white/10 border-white/20 text-white backdrop-blur-xl'
