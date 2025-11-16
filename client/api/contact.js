@@ -36,7 +36,9 @@ export default async function handler(req, res) {
     });
     
     // Send email using Resend
-    await resend.emails.send({
+    console.log('🔑 API Key exists:', !!process.env.RESEND_API_KEY);
+    
+    const emailResult = await resend.emails.send({
       from: 'PropreNet <onboarding@resend.dev>', // Use verified domain or resend.dev for testing
       to: 'olo.rozek.pl@gmail.com', // Your business email
       replyTo: email, // Customer's email for easy replies
@@ -56,6 +58,8 @@ export default async function handler(req, res) {
         </div>
       `
     });
+    
+    console.log('✅ Email sent successfully:', emailResult);
     
     return res.status(200).json({ 
       success: true, 
