@@ -133,7 +133,7 @@ export default function Navbar() {
               <a
                 href="tel:0764515942"
                 className={`flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold backdrop-blur-md transition-colors duration-300 ${
-                  isScrolled ? 'border-[#14794b]/20 text-[#14794b]' : 'border-white/30 text-white'
+                  isScrolled ? 'border-[#14794b]/20 text-[#14794b] bg-white/50' : 'border-[#14794b]/30 text-[#14794b] bg-white/90'
                 }`}
               >
                 <Phone className="w-4 h-4" />

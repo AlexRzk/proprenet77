@@ -23,7 +23,7 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   
-  const backgroundTextStartY = -175;
+  const backgroundTextStartY = -125;
   
   const teamImages = [
     '/images_our_team/059-510x680.jpg',
@@ -268,7 +268,7 @@ function App() {
           <div className="grid grid-cols-12 gap-4 md:gap-6 max-w-[1400px] mx-auto">
             {/* Large featured image - top left */}
             <div className="col-span-12 md:col-span-6 lg:col-span-4 row-span-2">
-              <div className="group relative overflow-hidden rounded-3xl shadow-2xl h-full min-h-[400px] md:min-h-[500px]">
+              <div className="group relative overflow-hidden rounded-3xl shadow-2xl h-full min-h-[350px] md:min-h-[500px]">
                 <img
                   src={teamImages[0]}
                   alt="Équipe PropreNet"
