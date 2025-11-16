@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     // Send email - IMPORTANT: Can only send to rozek.alexandre@gmail.com until domain is verified
     const { data, error } = await resend.emails.send({
       from: 'PropreNet <onboarding@resend.dev>',
-      to: 'rozek.alexandre@gmail.com', // Changed to your verified email
+      to: 'contact@proprenet77.com', // Changed to your verified email
       replyTo: email,
       subject: `Nouveau message de ${name}`,
       html: `
