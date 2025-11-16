@@ -61,6 +61,7 @@ const activities = [
 const Services = () => {
   return (
     <section id="activities" className="py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+      <div className="absolute inset-0 bg-white"></div>
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
       
       <div className="container mx-auto px-6 relative">

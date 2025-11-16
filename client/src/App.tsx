@@ -865,6 +865,36 @@ function App() {
                 </p>
               </div>
               <div>
+                <h3 className="font-semibold mb-3">Navigation</h3>
+                <ul className="text-gray-400 text-sm space-y-2">
+                  <li>
+                    <a href="#activities" onClick={(e) => { e.preventDefault(); document.getElementById('activities')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-[#00a41d] transition-colors cursor-pointer">
+                      Nos Services
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#about" onClick={(e) => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-[#00a41d] transition-colors cursor-pointer">
+                      Qui sommes-nous
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#team" onClick={(e) => { e.preventDefault(); document.getElementById('team')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-[#00a41d] transition-colors cursor-pointer">
+                      Notre équipe
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#photos" onClick={(e) => { e.preventDefault(); document.getElementById('photos')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-[#00a41d] transition-colors cursor-pointer">
+                      Nos réalisations
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }} className="hover:text-[#00a41d] transition-colors cursor-pointer">
+                      Contact
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
                 <h3 className="font-semibold mb-3">Services</h3>
                 <ul className="text-gray-400 text-sm space-y-1">
                   <li>Bureaux & Commerces</li>
