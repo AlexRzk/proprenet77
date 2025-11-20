@@ -365,15 +365,15 @@ function App() {
             </div>
           </div>
           
-          <div className="flex justify-center mt-16">
+          <div className="flex justify-center mt-12 px-4">
             <Button
               onClick={() => {
                 const contactSection = document.getElementById('contact');
                 contactSection?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="bg-gradient-to-r from-[#00a41d] to-emerald-600 hover:from-emerald-600 hover:to-[#00a41d] text-white px-10 py-6 rounded-full text-lg font-semibold shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105"
+              className="bg-gradient-to-r from-[#00a41d] to-emerald-600 hover:from-emerald-600 hover:to-[#00a41d] text-white px-6 md:px-10 py-4 md:py-6 rounded-full text-base md:text-lg font-semibold shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 w-full sm:w-auto max-w-sm"
             >
-              Demander un devis <ArrowRight className="w-5 h-5 ml-2" />
+              Demander un devis <ArrowRight className="w-4 md:w-5 h-4 md:h-5 ml-2" />
             </Button>
           </div>
         </div>
@@ -558,15 +558,15 @@ function App() {
             </div>
           </div>
           
-          <div className="flex justify-center mt-16">
+          <div className="flex justify-center mt-12 px-4">
             <Button
               onClick={() => {
                 const contactSection = document.getElementById('contact');
                 contactSection?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-emerald-600 hover:to-cyan-500 text-white px-10 py-6 rounded-full text-lg font-semibold shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105"
+              className="bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-emerald-600 hover:to-cyan-500 text-white px-6 md:px-10 py-4 md:py-6 rounded-full text-base md:text-lg font-semibold shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105 w-full sm:w-auto max-w-sm"
             >
-              Obtenir un devis <ArrowRight className="w-5 h-5 ml-2" />
+              Obtenir un devis <ArrowRight className="w-4 md:w-5 h-4 md:h-5 ml-2" />
             </Button>
           </div>
         </div>
@@ -621,17 +621,17 @@ function App() {
             ))}
           </div>
           
-          <div className="flex flex-col items-center gap-4 mt-16">
+          <div className="flex flex-col items-center gap-4 mt-12 px-4">
             <Button
               onClick={() => {
                 const contactSection = document.getElementById('contact');
                 contactSection?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="bg-gradient-to-r from-emerald-600 to-[#00a41d] hover:from-[#00a41d] hover:to-emerald-600 text-white px-10 py-6 rounded-full text-lg font-semibold shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105"
+              className="bg-gradient-to-r from-emerald-600 to-[#00a41d] hover:from-[#00a41d] hover:to-emerald-600 text-white px-6 md:px-10 py-4 md:py-6 rounded-full text-base md:text-lg font-semibold shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105 w-full sm:w-auto max-w-sm"
             >
-              Devis rapide <ArrowRight className="w-5 h-5 ml-2" />
+              Devis rapide <ArrowRight className="w-4 md:w-5 h-4 md:h-5 ml-2" />
             </Button>
-            <p className="text-sm text-gray-500">Rejoignez nos clients satisfaits</p>
+            <p className="text-xs md:text-sm text-gray-500 text-center">Rejoignez nos clients satisfaits</p>
           </div>
         </div>
       </section>
@@ -784,17 +784,17 @@ function App() {
             </div>
           </div>
           
-          <div className="flex flex-col items-center gap-4 mt-16">
+          <div className="flex flex-col items-center gap-4 mt-12 px-4">
             <Button
               onClick={() => {
                 const contactSection = document.getElementById('contact');
                 contactSection?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="bg-gradient-to-r from-[#00a41d] via-emerald-500 to-cyan-500 hover:from-cyan-500 hover:via-emerald-500 hover:to-[#00a41d] text-white px-12 py-7 rounded-full text-xl font-bold shadow-2xl hover:shadow-emerald-500/60 transition-all duration-500 hover:scale-110"
+              className="bg-gradient-to-r from-[#00a41d] via-emerald-500 to-cyan-500 hover:from-cyan-500 hover:via-emerald-500 hover:to-[#00a41d] text-white px-6 md:px-12 py-4 md:py-7 rounded-full text-base md:text-xl font-bold shadow-2xl hover:shadow-emerald-500/60 transition-all duration-500 hover:scale-105 md:hover:scale-110 w-full sm:w-auto max-w-sm"
             >
-              Demandez votre devis <ArrowRight className="w-6 h-6 ml-2" />
+              Demandez votre devis <ArrowRight className="w-4 md:w-6 h-4 md:h-6 ml-2" />
             </Button>
-            <p className="text-sm text-gray-500">Gratuit et sans engagement</p>
+            <p className="text-xs md:text-sm text-gray-500 text-center">Gratuit et sans engagement</p>
           </div>
         </div>
       </section>
