@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar';
-import { Phone, Sparkles, Star } from 'lucide-react';
+import { Phone, Sparkles, Star, ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from './components/ui/button';
 import { Card, CardContent } from './components/ui/card';
