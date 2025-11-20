@@ -1,3 +1,4 @@
+// Trigger redeploy: dummy comment for Vercel
 import Navbar from './components/Navbar';
 import { Phone, Sparkles, Star, ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
