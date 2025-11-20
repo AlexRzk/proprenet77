@@ -363,6 +363,18 @@ function App() {
               </div>
             </div>
           </div>
+          
+          <div className="flex justify-center mt-16">
+            <Button
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                contactSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-[#00a41d] to-emerald-600 hover:from-emerald-600 hover:to-[#00a41d] text-white px-10 py-6 rounded-full text-lg font-semibold shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105"
+            >
+              Demander un devis <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -544,6 +556,18 @@ function App() {
               </div>
             </div>
           </div>
+          
+          <div className="flex justify-center mt-16">
+            <Button
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                contactSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-cyan-500 to-emerald-600 hover:from-emerald-600 hover:to-cyan-500 text-white px-10 py-6 rounded-full text-lg font-semibold shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105"
+            >
+              Obtenir un devis <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -594,6 +618,19 @@ function App() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+          
+          <div className="flex flex-col items-center gap-4 mt-16">
+            <Button
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                contactSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-emerald-600 to-[#00a41d] hover:from-[#00a41d] hover:to-emerald-600 text-white px-10 py-6 rounded-full text-lg font-semibold shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105"
+            >
+              Devis rapide <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+            <p className="text-sm text-gray-500">Rejoignez nos clients satisfaits</p>
           </div>
         </div>
       </section>
@@ -744,6 +781,19 @@ function App() {
                 />
               </div>
             </div>
+          </div>
+          
+          <div className="flex flex-col items-center gap-4 mt-16">
+            <Button
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                contactSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-gradient-to-r from-[#00a41d] via-emerald-500 to-cyan-500 hover:from-cyan-500 hover:via-emerald-500 hover:to-[#00a41d] text-white px-12 py-7 rounded-full text-xl font-bold shadow-2xl hover:shadow-emerald-500/60 transition-all duration-500 hover:scale-110"
+            >
+              Demandez votre devis <ArrowRight className="w-6 h-6 ml-2" />
+            </Button>
+            <p className="text-sm text-gray-500">Gratuit et sans engagement</p>
           </div>
         </div>
       </section>
