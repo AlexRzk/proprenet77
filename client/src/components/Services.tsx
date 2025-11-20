@@ -104,7 +104,7 @@ const Services = () => {
               </CardHeader>
               
               <CardContent className="relative">
-                <ul className="space-y-3 mb-6">
+                <ul className="space-y-3">
                   {activity.details.map((detail, i) => (
                     <li key={i} className="flex items-center gap-3 group/item">
                       <div className="flex-shrink-0 w-5 h-5 bg-gradient-to-br from-[#00a41d] to-[#00c424] rounded-full flex items-center justify-center">
@@ -116,18 +116,21 @@ const Services = () => {
                     </li>
                   ))}
                 </ul>
-                <Button
-                  onClick={() => {
-                    const contactSection = document.getElementById('contact');
-                    contactSection?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="w-full bg-gradient-to-r from-[#00a41d] to-emerald-600 hover:from-emerald-600 hover:to-[#00a41d] text-white py-5 rounded-xl text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
-                >
-                  Devis gratuit <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
               </CardContent>
             </Card>
           ))}
+        </div>
+        
+        <div className="flex justify-center mt-16">
+          <Button
+            onClick={() => {
+              const contactSection = document.getElementById('contact');
+              contactSection?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="bg-gradient-to-r from-[#00a41d] to-emerald-600 hover:from-emerald-600 hover:to-[#00a41d] text-white px-10 py-6 rounded-full text-lg font-semibold shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 hover:scale-105"
+          >
+            Devis gratuit <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
         </div>
       </div>
     </section>
