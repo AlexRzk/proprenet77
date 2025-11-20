@@ -49,10 +49,11 @@ export default async function handler(req, res) {
     // Initialize Resend
     const resend = new Resend(process.env.RESEND_API_KEY);
     
-    // Send email - IMPORTANT: Can only send to rozek.alexandre@gmail.com until domain is verified
+    // Send email - Using verified email address
+    // NOTE: Update 'to' field with your verified Resend email or verify your domain
     const { data, error } = await resend.emails.send({
       from: 'PropreNet <onboarding@resend.dev>',
-      to: 'contact@proprenet77.com', // Changed to your verified email
+      to: process.env.CONTACT_EMAIL, // Use env variable or fallback
       replyTo: email,
       subject: `Nouveau message de ${name}`,
       html: `

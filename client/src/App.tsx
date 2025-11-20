@@ -245,6 +245,73 @@ function App() {
 
       <Services />
 
+      {/* Brochure Request Section */}
+      <section id="brochure" className="relative py-20 bg-gradient-to-r from-[#00a41d]/5 via-emerald-50 to-cyan-50 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 right-[10%] w-64 h-64 bg-gradient-to-br from-emerald-200/20 to-cyan-200/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
+              Recevez notre brochure
+            </h2>
+            <p className="text-lg text-gray-600 font-light">
+              Découvrez tous nos services détaillés dans notre brochure complète
+            </p>
+          </div>
+
+          <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8 md:p-10">
+            <form className="space-y-4" onSubmit={async (e) => {
+              e.preventDefault();
+              const formElement = e.currentTarget;
+              const email = (formElement.querySelector('input[type="email"]') as HTMLInputElement)?.value;
+              
+              if (!email) {
+                alert('Veuillez entrer votre email');
+                return;
+              }
+
+              try {
+                const response = await fetch('/api/brochure', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ email }),
+                });
+
+                if (response.ok) {
+                  alert('Brochure envoyée à votre email !');
+                  formElement.reset();
+                } else {
+                  alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+                }
+              } catch (error) {
+                console.error('Error:', error);
+                alert('Erreur lors de l\'envoi.');
+              }
+            }}>
+              <div>
+                <Input 
+                  type="email" 
+                  placeholder="Votre email" 
+                  className="h-12 text-base"
+                  required
+                />
+              </div>
+              <Button 
+                type="submit"
+                className="w-full h-12 bg-gradient-to-r from-[#00a41d] to-emerald-600 hover:from-emerald-600 hover:to-[#00a41d] text-white font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                Télécharger la brochure
+              </Button>
+            </form>
+            <p className="text-center text-xs text-gray-500 mt-4">
+              Nous ne partagerons jamais votre email
+            </p>
+          </div>
+        </div>
+      </section>
+
       <About />
 
       {/* Équipe Section */}
