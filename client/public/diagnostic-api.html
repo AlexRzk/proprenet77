@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnostic API Production</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 32px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid #667eea;
+    }
+    h2 {
+      color: #333;
+      margin-top: 0;
+      font-size: 20px;
+    }
+    button {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .result {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid #c3e6cb;
+    }
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 2px solid #f5c6cb;
+    }
+    .info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 2px solid #bee5eb;
+    }
+    pre {
+      background: #2d3748;
+      color: #68d391;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+    .status-200 { background: #c3e6cb; color: #155724; }
+    .status-400 { background: #f5c6cb; color: #721c24; }
+    .status-500 { background: #f5c6cb; color: #721c24; }
+    .info-box {
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .info-box strong {
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Diagnostic API PropreNet</h1>
+    <p class="subtitle">Testez les endpoints API pour identifier les problèmes</p>
+    
+    <div class="info-box">
+      <strong>ℹ️ Information:</strong> Cette page teste les API serverless de Vercel.<br>
+      <strong>Environnement:</strong> <span id="environment">Détection...</span><br>
+      <strong>Base URL:</strong> <code id="baseUrl">Chargement...</code>
+    </div>
+
+    <!-- Test Contact API -->
+    <div class="section">
+      <h2>📧 Test API Contact</h2>
+      <p>Endpoint: <code>/api/contact</code></p>
+      <button onclick="testContactAPI()">Tester l'API Contact</button>
+      <button onclick="testContactAPIOptions()">Tester CORS (OPTIONS)</button>
+      <div id="contactResult" class="result"></div>
+    </div>
+
+    <!-- Test Brochure API -->
+    <div class="section">
+      <h2>📄 Test API Brochure</h2>
+      <p>Endpoint: <code>/api/brochure</code></p>
+      <button onclick="testBrochureAPI()">Tester l'API Brochure</button>
+      <button onclick="testBrochureAPIOptions()">Tester CORS (OPTIONS)</button>
+      <div id="brochureResult" class="result"></div>
+    </div>
+
+    <!-- Test Endpoints Existence -->
+    <div class="section">
+      <h2>🔎 Vérification des Endpoints</h2>
+      <p>Vérifier que les endpoints existent sur Vercel</p>
+      <button onclick="checkEndpoints()">Vérifier tous les endpoints</button>
+      <div id="endpointsResult" class="result"></div>
+    </div>
+
+    <!-- Network Info -->
+    <div class="section">
+      <h2>🌐 Information Réseau</h2>
+      <button onclick="showNetworkInfo()">Afficher les infos réseau</button>
+      <div id="networkResult" class="result"></div>
+    </div>
+  </div>
+  
+  <script>
+    // Detect environment
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const baseUrl = window.location.origin;
+    
+    document.getElementById('environment').textContent = isLocal ? '🏠 Local' : '☁️ Production (Vercel)';
+    document.getElementById('baseUrl').textContent = baseUrl;
+
+    async function testContactAPI() {
+      const resultDiv = document.getElementById('contactResult');
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result info';
+      resultDiv.innerHTML = '⏳ Test en cours...';
+      
+      const testData = {
+        name: 'Test Diagnostic',
+        email: 'test@diagnostic.com',
+        phone: '0123456789',
+        message: 'Ceci est un test automatique du système de diagnostic.'
+      };
+      
+      try {
+        console.log('🧪 Testing /api/contact with data:', testData);
+        
+        const startTime = Date.now();
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(testData),
+        });
+        const endTime = Date.now();
+        const duration = endTime - startTime;
+        
+        const data = await response.json();
+        
+        console.log('📥 Response:', { status: response.status, data });
+        
+        if (response.ok) {
+          resultDiv.className = 'result success';
+          resultDiv.innerHTML = `
+            <h3>✅ API Contact fonctionne ! <span class="status-badge status-200">HTTP ${response.status}</span></h3>
+            <p><strong>Temps de réponse:</strong> ${duration}ms</p>
+            <p><strong>Message:</strong> ${data.message}</p>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+          `;
+        } else {
+          resultDiv.className = 'result error';
+          resultDiv.innerHTML = `
+            <h3>❌ Erreur API Contact <span class="status-badge status-${response.status}">HTTP ${response.status}</span></h3>
+            <p><strong>Message:</strong> ${data.message || 'Erreur inconnue'}</p>
+            <p><strong>Code erreur:</strong> ${data.error_code || 'N/A'}</p>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+            <h4>💡 Solutions possibles:</h4>
+            <ul>
+              <li>Vérifier que RESEND_API_KEY est configuré dans Vercel</li>
+              <li>Vérifier que rozek.alexandre@gmail.com est vérifié dans Resend</li>
+              <li>Consulter les logs Vercel pour plus de détails</li>
+            </ul>
+          `;
+        }
+      } catch (error) {
+        console.error('💥 Error:', error);
+        resultDiv.className = 'result error';
+        resultDiv.innerHTML = `
+          <h3>💥 Erreur de connexion</h3>
+          <p><strong>Message:</strong> ${error.message}</p>
+          <pre>${error.stack}</pre>
+          <h4>⚠️ Problème probable:</h4>
+          <ul>
+            <li><strong>Endpoint introuvable:</strong> L'API /api/contact n'existe pas sur le serveur</li>
+            <li><strong>CORS bloqué:</strong> Problème de Cross-Origin Resource Sharing</li>
+            <li><strong>Réseau:</strong> Problème de connexion au serveur</li>
+          </ul>
+        `;
+      }
+    }
+
+    async function testBrochureAPI() {
+      const resultDiv = document.getElementById('brochureResult');
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result info';
+      resultDiv.innerHTML = '⏳ Test en cours...';
+      
+      const testData = {
+        email: 'test@diagnostic.com'
+      };
+      
+      try {
+        console.log('🧪 Testing /api/brochure with data:', testData);
+        
+        const startTime = Date.now();
+        const response = await fetch('/api/brochure', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(testData),
+        });
+        const endTime = Date.now();
+        const duration = endTime - startTime;
+        
+        const data = await response.json();
+        
+        console.log('📥 Response:', { status: response.status, data });
+        
+        if (response.ok) {
+          resultDiv.className = 'result success';
+          resultDiv.innerHTML = `
+            <h3>✅ API Brochure fonctionne ! <span class="status-badge status-200">HTTP ${response.status}</span></h3>
+            <p><strong>Temps de réponse:</strong> ${duration}ms</p>
+            <p><strong>Message:</strong> ${data.message}</p>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+          `;
+        } else {
+          resultDiv.className = 'result error';
+          resultDiv.innerHTML = `
+            <h3>❌ Erreur API Brochure <span class="status-badge status-${response.status}">HTTP ${response.status}</span></h3>
+            <p><strong>Message:</strong> ${data.message || 'Erreur inconnue'}</p>
+            <p><strong>Code erreur:</strong> ${data.error_code || 'N/A'}</p>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+          `;
+        }
+      } catch (error) {
+        console.error('💥 Error:', error);
+        resultDiv.className = 'result error';
+        resultDiv.innerHTML = `
+          <h3>💥 Erreur de connexion</h3>
+          <p><strong>Message:</strong> ${error.message}</p>
+          <pre>${error.stack}</pre>
+          <h4>⚠️ Problème probable:</h4>
+          <ul>
+            <li><strong>Endpoint introuvable:</strong> L'API /api/brochure n'existe pas sur le serveur</li>
+            <li><strong>Fichier manquant:</strong> brochure.mjs n'est pas déployé sur Vercel</li>
+          </ul>
+        `;
+      }
+    }
+
+    async function testContactAPIOptions() {
+      const resultDiv = document.getElementById('contactResult');
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result info';
+      resultDiv.innerHTML = '⏳ Test CORS en cours...';
+      
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'OPTIONS',
+        });
+        
+        const headers = Object.fromEntries(response.headers.entries());
+        
+        resultDiv.className = 'result success';
+        resultDiv.innerHTML = `
+          <h3>✅ CORS activé <span class="status-badge status-200">HTTP ${response.status}</span></h3>
+          <p><strong>Headers CORS:</strong></p>
+          <pre>${JSON.stringify({
+            'Access-Control-Allow-Origin': headers['access-control-allow-origin'],
+            'Access-Control-Allow-Methods': headers['access-control-allow-methods'],
+            'Access-Control-Allow-Headers': headers['access-control-allow-headers']
+          }, null, 2)}</pre>
+        `;
+      } catch (error) {
+        resultDiv.className = 'result error';
+        resultDiv.innerHTML = `<h3>❌ CORS non configuré</h3><pre>${error.message}</pre>`;
+      }
+    }
+
+    async function testBrochureAPIOptions() {
+      const resultDiv = document.getElementById('brochureResult');
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result info';
+      resultDiv.innerHTML = '⏳ Test CORS en cours...';
+      
+      try {
+        const response = await fetch('/api/brochure', {
+          method: 'OPTIONS',
+        });
+        
+        const headers = Object.fromEntries(response.headers.entries());
+        
+        resultDiv.className = 'result success';
+        resultDiv.innerHTML = `
+          <h3>✅ CORS activé <span class="status-badge status-200">HTTP ${response.status}</span></h3>
+          <p><strong>Headers CORS:</strong></p>
+          <pre>${JSON.stringify({
+            'Access-Control-Allow-Origin': headers['access-control-allow-origin'],
+            'Access-Control-Allow-Methods': headers['access-control-allow-methods'],
+            'Access-Control-Allow-Headers': headers['access-control-allow-headers']
+          }, null, 2)}</pre>
+        `;
+      } catch (error) {
+        resultDiv.className = 'result error';
+        resultDiv.innerHTML = `<h3>❌ CORS non configuré</h3><pre>${error.message}</pre>`;
+      }
+    }
+
+    async function checkEndpoints() {
+      const resultDiv = document.getElementById('endpointsResult');
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result info';
+      resultDiv.innerHTML = '⏳ Vérification en cours...';
+      
+      const endpoints = ['/api/contact', '/api/brochure'];
+      const results = [];
+      
+      for (const endpoint of endpoints) {
+        try {
+          const response = await fetch(endpoint, { method: 'OPTIONS' });
+          results.push({
+            endpoint,
+            exists: true,
+            status: response.status,
+            statusText: response.statusText
+          });
+        } catch (error) {
+          results.push({
+            endpoint,
+            exists: false,
+            error: error.message
+          });
+        }
+      }
+      
+      let html = '<h3>📊 Résultats de vérification</h3><ul>';
+      results.forEach(result => {
+        if (result.exists) {
+          html += `<li>✅ <code>${result.endpoint}</code> - <span class="status-badge status-${result.status}">HTTP ${result.status}</span></li>`;
+        } else {
+          html += `<li>❌ <code>${result.endpoint}</code> - Non trouvé (${result.error})</li>`;
+        }
+      });
+      html += '</ul>';
+      
+      const allExist = results.every(r => r.exists);
+      resultDiv.className = allExist ? 'result success' : 'result error';
+      resultDiv.innerHTML = html;
+    }
+
+    function showNetworkInfo() {
+      const resultDiv = document.getElementById('networkResult');
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result info';
+      
+      const info = {
+        'URL actuelle': window.location.href,
+        'Hostname': window.location.hostname,
+        'Protocol': window.location.protocol,
+        'Port': window.location.port || 'default',
+        'Environnement': isLocal ? 'Local' : 'Production',
+        'User Agent': navigator.userAgent,
+        'Langue': navigator.language,
+        'En ligne': navigator.onLine ? 'Oui' : 'Non'
+      };
+      
+      resultDiv.innerHTML = `
+        <h3>🌐 Informations Réseau</h3>
+        <pre>${JSON.stringify(info, null, 2)}</pre>
+      `;
+    }
+  </script>
+</body>
+</html>
