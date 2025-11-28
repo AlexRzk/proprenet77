@@ -96,8 +96,14 @@ export default async function handler(req, res) {
     ] : [];
     
     // Send email with optional PDF attachment
+    console.log('📧 Preparing to send brochure email:', {
+      from: 'PropreNet <contact@proprenet77.com>',
+      to: email,
+      subject: 'Votre brochure PropreNet'
+    });
+    
     const { data, error } = await resend.emails.send({
-      from: 'PropreNet <onboarding@resend.dev>',
+      from: 'PropreNet <contact@proprenet77.com>',
       to: email,
       subject: 'Votre brochure PropreNet',
       html: `

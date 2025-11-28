@@ -54,8 +54,15 @@ export default async function handler(req, res) {
     console.log('📧 Sending to:', recipientEmail);
     
     // Send email - Using verified email address
-    const { data, error } = await resend.emails.send({
+    console.log('📧 Preparing to send email:', {
       from: 'PropreNet <onboarding@resend.dev>',
+      to: recipientEmail,
+      replyTo: email,
+      subject: `Nouveau message de ${name}`
+    });
+    
+    const { data, error } = await resend.emails.send({
+      from: 'PropreNet <contact@proprenet77.com>',
       to: recipientEmail,
       replyTo: email,
       subject: `Nouveau message de ${name}`,
@@ -77,9 +84,32 @@ export default async function handler(req, res) {
     
     if (error) {
       console.error('❌ Resend error:', error);
+      console.error('❌ Error details:', JSON.stringify(error, null, 2));
+      console.error('❌ Error name:', error.name);
+      console.error('❌ Error message:', error.message);
+      
+      // Check if it's an authentication error
+      if (error.message && error.message.includes('API key')) {
+        return res.status(500).json({ 
+          success: false, 
+          message: 'API key error. Please verify Resend configuration.',
+          error_code: 'INVALID_API_KEY'
+        });
+      }
+      
+      // Check if it's an email verification error
+      if (error.message && (error.message.includes('verify') || error.message.includes('domain'))) {
+        return res.status(500).json({ 
+          success: false, 
+          message: 'Email verification required. Please verify your email in Resend dashboard.',
+          error_code: 'EMAIL_NOT_VERIFIED'
+        });
+      }
+      
       return res.status(500).json({ 
         success: false, 
-        message: 'Erreur lors de l\'envoi de l\'email' 
+        message: `Error sending email: ${error.message}`,
+        error_code: 'RESEND_ERROR'
       });
     }
     
