@@ -50,29 +50,42 @@ git push origin main
 ### Étape 4: Tester
 
 Attendez 1-2 minutes que le déploiement se termine, puis:
+
+**Test 1 - Formulaire de contact:**
+1. Allez sur votre site
+2. Scrollez vers "Demander un devis"
+3. Remplissez le formulaire
+4. Cliquez sur "Envoyer ma demande"
+5. ✅ Vous devriez recevoir l'email !
+
+**Test 2 - Formulaire brochure:**
 1. Allez sur votre site
 2. Testez la section "Recevez notre brochure"
 3. Entrez votre email: `rozek.alexandre@gmail.com`
 4. Cliquez sur "Télécharger la brochure"
-
-✅ Vous devriez recevoir l'email avec le PDF !
+5. ✅ Vous devriez recevoir l'email avec le PDF !
 
 ---
 
 ## 🔍 Tests de diagnostic (AVANT de configurer)
 
-### Test 1: Page de diagnostic
+### Test 1: Page de diagnostic brochure
 ```
 http://localhost:5173/test-brochure.html
 ```
 
-Cette page vous montre l'erreur exacte dans la console.
+### Test 2: Page de diagnostic contact
+```
+http://localhost:5173/test-contact.html
+```
+
+Ces pages vous montrent l'erreur exacte dans la console.
 
 ### Test 2: Vérifier les logs de production
 
 1. Allez sur https://vercel.com/[votre-projet]/logs
 2. Cliquez sur "Serverless Function"
-3. Cherchez `/api/brochure`
+3. Cherchez `/api/contact` ou `/api/brochure`
 4. Vous devriez voir: `❌ RESEND_API_KEY is not set`
 
 ---
@@ -83,8 +96,9 @@ Cette page vous montre l'erreur exacte dans la console.
 - [ ] `RESEND_API_KEY` ajoutée dans Vercel
 - [ ] Email `rozek.alexandre@gmail.com` vérifié dans Resend
 - [ ] Projet redéployé
-- [ ] Test effectué sur le site de production
-- [ ] Email de brochure reçu ✅
+- [ ] Formulaire de contact testé ✅
+- [ ] Formulaire brochure testé ✅
+- [ ] Emails reçus ✅
 
 ---
 
@@ -118,11 +132,17 @@ Doit retourner `True`
 
 J'ai amélioré le code pour donner des messages d'erreur plus clairs:
 
+**Pour le formulaire contact:**
+✅ Message spécifique si `RESEND_API_KEY` manque
+✅ Logs détaillés dans la console du navigateur
+✅ Page de test: `http://localhost:5173/test-contact.html`
+
+**Pour le formulaire brochure:**
 ✅ Message spécifique si `RESEND_API_KEY` manque
 ✅ Message spécifique si la clé API est invalide
 ✅ Message spécifique si l'email n'est pas vérifié
 ✅ Logs détaillés dans la console du navigateur
-✅ Page de test pour diagnostiquer les erreurs
+✅ Page de test: `http://localhost:5173/test-brochure.html`
 
 ---
 
@@ -130,7 +150,7 @@ J'ai amélioré le code pour donner des messages d'erreur plus clairs:
 
 **MAINTENANT:** Ajoutez `RESEND_API_KEY` dans Vercel et redéployez !
 
-**Résultat attendu:** La fonction brochure fonctionnera et enverra les emails avec le PDF.
+**Résultat attendu:** Les deux formulaires (contact + brochure) fonctionneront et enverront les emails.
 
 ---
 
@@ -141,4 +161,6 @@ Consultez les fichiers:
 - `TEST_EMAIL_FUNCTIONS.md` - Tests des fonctions email
 - `VERCEL_DEPLOYMENT.md` - Configuration Vercel et Resend
 
-Ou testez localement avec: `http://localhost:5173/test-brochure.html`
+Ou testez localement avec:
+- Contact: `http://localhost:5173/test-contact.html`
+- Brochure: `http://localhost:5173/test-brochure.html`
