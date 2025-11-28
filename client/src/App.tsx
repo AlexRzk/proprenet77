@@ -273,21 +273,28 @@ function App() {
               }
 
               try {
+                console.log('📄 Sending brochure request to:', email);
+                
                 const response = await fetch('/api/brochure', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ email }),
                 });
 
+                console.log('📥 Brochure response status:', response.status);
+                const responseData = await response.json();
+                console.log('📥 Brochure response data:', responseData);
+
                 if (response.ok) {
-                  alert('Brochure envoyée à votre email !');
+                  alert('✅ Brochure envoyée à votre email !');
                   formElement.reset();
                 } else {
-                  alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+                  console.error('❌ Brochure error:', responseData);
+                  alert(`Erreur: ${responseData.message || 'Veuillez réessayer plus tard.'}\n\nSi le problème persiste, contactez-nous au 07 64 51 59 42`);
                 }
               } catch (error) {
-                console.error('Error:', error);
-                alert('Erreur lors de l\'envoi.');
+                console.error('❌ Error sending brochure:', error);
+                alert('Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.\n\nOu contactez-nous directement au 07 64 51 59 42');
               }
             }}>
               <div>

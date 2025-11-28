@@ -47,9 +47,11 @@ export default async function handler(req, res) {
     // Check if API key exists
     if (!process.env.RESEND_API_KEY) {
       console.error('❌ RESEND_API_KEY is not set');
+      console.error('📝 Please add RESEND_API_KEY to Vercel environment variables');
       return res.status(500).json({ 
         success: false, 
-        message: 'Configuration error' 
+        message: 'Configuration error: RESEND_API_KEY not set. Please contact administrator.',
+        error_code: 'MISSING_API_KEY'
       });
     }
     
@@ -146,9 +148,30 @@ export default async function handler(req, res) {
     
     if (error) {
       console.error('❌ Resend error:', error);
+      console.error('📝 Error details:', JSON.stringify(error, null, 2));
+      
+      // Check if it's an authentication error
+      if (error.message && error.message.includes('API key')) {
+        return res.status(500).json({ 
+          success: false, 
+          message: 'API key error. Please verify Resend configuration.',
+          error_code: 'INVALID_API_KEY'
+        });
+      }
+      
+      // Check if it's an email verification error
+      if (error.message && (error.message.includes('verify') || error.message.includes('domain'))) {
+        return res.status(500).json({ 
+          success: false, 
+          message: 'Email verification required. Please verify your email in Resend dashboard.',
+          error_code: 'EMAIL_NOT_VERIFIED'
+        });
+      }
+      
       return res.status(500).json({ 
         success: false, 
-        message: 'Error sending brochure' 
+        message: `Error sending brochure: ${error.message}`,
+        error_code: 'RESEND_ERROR'
       });
     }
     
@@ -163,10 +186,12 @@ export default async function handler(req, res) {
     console.error('❌ Error processing brochure request:', error);
     console.error('Error name:', error.name);
     console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
     
     return res.status(500).json({ 
       success: false, 
-      message: 'Error processing request' 
+      message: `Server error: ${error.message}`,
+      error_code: 'SERVER_ERROR'
     });
   }
 }
